@@ -15813,7 +15813,7 @@ textarea.form-control-lg {
 }
 
 .app-header {
-  position: relative;
+  /* position: relative; */
   z-index: 50;
   width: 100%;
   background: var(--bs-body-bg);

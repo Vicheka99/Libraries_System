@@ -13,8 +13,7 @@
 
 <body>
     <!--  Body Wrapper -->
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        >
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full">
         <!-- Sidebar Start -->
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -58,11 +57,6 @@
             <header class="app-header">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <ul class="navbar-nav">
-                        <li class="nav-item d-block d-xl-none">
-                            <a class="nav-link sidebartoggler " id="headerCollapse" href="javascript:void(0)">
-                                <i class="ti ti-menu-2"></i>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " href="javascript:void(0)" id="drop1"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -119,38 +113,6 @@
             </header>
             <!--  Header End -->
             <div class="body-wrapper-inner">
-                <div class="container-fluid">
-                    <!--  Row 1 -->
-                    <div class="row">
-                        <div class="card-body pb-0">
-                            <div class="d-flex align-items-start">
-
-                                <div class="ms-auto">
-                                    <div class="dropdown">
-                                        <a href="javascript:void(0)" class="text-muted" id="year1-dropdown"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots fs-7"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end"
-                                            aria-labelledby="year1-dropdown">
-                                            <li>
-                                                <a class="dropdown-item" href="javascript:void(0)">Action</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="javascript:void(0)">Another
-                                                    action</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="javascript:void(0)">Something else
-                                                    here</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
