@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gen-Z Library</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.jpg') }}" />
     <link rel="stylesheet" href="{{ asset('/assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/assets/css/styles.min.css.map') }}" />
@@ -36,24 +37,13 @@
                         <!-- Dashboard -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link justify-content-between" href="/" aria-expanded="false">
+                            <a class="sidebar-link justify-content-between" href="#" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
                                         <i class="ti ti-aperture"></i>
                                     </span>
                                     <span class="hide-menu">DashBoard</span>
                                 </div>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link justify-content-between" href="#" aria-expanded="false">
-                                <div class="d-flex align-items-center gap-3">
-                                    <span class="d-flex">
-                                        <i class="ti ti-aperture"></i>
-                                    </span>
-                                    <span class="hide-menu">Analytical</span>
-                                </div>
-                            </a>
                         </li>
                     </ul>
                 </nav>
