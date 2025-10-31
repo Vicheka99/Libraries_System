@@ -1,0 +1,181 @@
+/* ===== Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --text: #222;
+  --muted: #1e1e1eff;
+  --border: #ddd;
+  --bg: #fff;
+  --bg-soft: #fafafa;
+}
+html, body { height: 100%; }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Kill Vite scaffold constraints if still present */
+#root { max-width: none; padding: 0; text-align: initial; }
+
+/* ===== Header ===== */
+.g-header{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background-color:#EDEDED;
+  position: sticky; top:0; z-index:10;
+
+}
+.g-logo{ display:flex; align-items:center; gap:10px; }
+.g-logo img{ width:48px; height:48px; object-fit:contain; }
+.g-logo h2{ font-size:18px; font-weight:700; }
+
+nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-content:center; }
+.g-link{
+  text-decoration:none; color:var(--muted); font-size:15px;
+  padding:8px 12px; border-radius:8px;
+}
+.g-link:hover, .g-link.is-active{ color:#2e2f30; background:#f0f1f3; }
+
+.g-search{ position:relative; display:flex; align-items:center; }
+.g-search i{ position:absolute; right:10px; font-size:18px; color:#666; }
+.g-search input{
+  width: 220px; max-width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid #e5e7eb; border-radius: 10px;
+  background:#fff; outline:none;
+}
+.g-search input:focus{ border-color:#bfc3c7; }
+
+@media (max-width: 900px){
+  .g-header{ grid-template-columns: 1fr; grid-auto-rows: auto; }
+  nav ul{ flex-wrap: wrap; gap:12px; }
+  .g-search { order: 3; }
+  .g-search input{ width: 100%; }
+}
+
+/* ===== Layout (Sidebar + Content) ===== */
+.g-main{
+  display:grid;
+  grid-template-columns: 220px minmax(0,1fr);
+  gap:24px;
+  padding:16px 24px;
+}
+@media (max-width:900px){
+  .g-main{ grid-template-columns: 1fr; gap:16px; padding:12px 16px; }
+}
+
+/* ===== Sidebar Panel ===== */
+.g-sidebar {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px 20px;
+  width: 220px;
+  height: fit-content;
+  position: sticky;
+  top: 80px; /* below header */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  float: left;
+  margin-top: 32px;
+  margin-left: 7px;
+  position: sticky;
+}
+.g-sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+}
+.g-sidebar-link {
+  text-decoration: none;
+  color: #444;
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+.g-sidebar-link:hover { color: #000; }
+.g-sidebar-link strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #000;
+}
+
+/* Sidebar becomes top menu on mobile */
+@media (max-width: 900px) {
+  .g-sidebar {
+    width: 100%;
+    position: static;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 12px;
+  }
+  .g-sidebar ul { flex-direction: row; gap: 12px; }
+  .g-sidebar-link strong { margin: 0; }
+}
+
+/* ===== Content Panel + Grid ===== */
+.book-section{
+  background:#fff;
+  border:1px solid #d4d4d4;
+  border-radius:12px;
+  padding:24px;
+  width:100%;
+  max-width:1670px;        /* keep the cap */
+  justify-self: start;     /* ← hug the sidebar */
+  align-self: start;
+  overflow: hidden;
+  float: right;
+}
+
+
+/* 4 → 3 → 2 → 1 columns */
+.book-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:32px;
+}
+@media (max-width:1200px){ .book-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (max-width:900px){  .book-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width:560px){  .book-grid{ grid-template-columns: 1fr; } }
+
+/* Cards (image-led) */
+.book-card{
+  border:0;
+  background:transparent;
+  padding:0;
+  text-align:left;
+}
+.book-cover{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  border-radius:10px;
+  display:block;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.book-title{
+  margin-top:12px;
+  font-weight:700;
+  font-size:17px;
+}
+.book-author{
+  color:#6b7280;
+  font-size:14px;
+}
+
+/* Optional page title */
+.page-title{
+  margin:4px 0 12px;
+  font-size:22px;
+  font-weight:800;
+}
