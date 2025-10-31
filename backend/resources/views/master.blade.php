@@ -19,8 +19,8 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="assets/images/logos/icon.png" alt="" width="100px" height="100px"/>
+                    <a href="./" class="text-nowrap logo-img ">
+                        <img src="assets/images/logos/icon.png" alt="" width="200px" height="100px" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-6"></i>
@@ -33,7 +33,6 @@
                             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">Home</span>
                         </li>
-                        <!-- ---------------------------------- -->
                         <!-- Dashboard -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
@@ -44,6 +43,17 @@
                                     </span>
                                     <span class="hide-menu">DashBoard</span>
                                 </div>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link justify-content-between" href="#" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="d-flex">
+                                        <i class="ti ti-aperture"></i>
+                                    </span>
+                                    <span class="hide-menu">Analytical</span>
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -58,9 +68,14 @@
             <header class="app-header">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <ul class="navbar-nav">
+                        <li class="nav-item d-block d-xl-none">
+                            <a class="nav-link sidebartoggler " id="headerCollapse" href="javascript:void(0)">
+                                <i class="ti ti-menu-2"></i>
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="javascript:void(0)" id="drop1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link " href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 <i class="ti ti-bell"></i>
                                 <div class="notification bg-primary rounded-circle"></div>
                             </a>
@@ -80,8 +95,8 @@
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="javascript:void(0)" id="drop2"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     <img src="./assets/images/profile/user-1.jpg" alt="" width="35"
                                         height="35" class="rounded-circle">
                                 </a>
