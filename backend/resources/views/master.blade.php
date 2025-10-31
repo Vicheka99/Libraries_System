@@ -37,13 +37,22 @@
                         <!-- Dashboard -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link justify-content-between" href="#" aria-expanded="false">
+                            <a class="sidebar-link justify-content-between" href="{{route('/index')}}" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
                                         <i class="ti ti-aperture"></i>
                                     </span>
                                     <span class="hide-menu">DashBoard</span>
                                 </div>
+                            </a>
+                            <a class="sidebar-link justify-content-between" href="{{route('user.index')}}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="d-flex">
+                                        <i class="ti ti-aperture"></i>
+                                    </span>
+                                    <span class="hide-menu">Admin</span>
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </nav>

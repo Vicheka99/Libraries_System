@@ -6,20 +6,6 @@
                 <div class="card overflow-hidden">
                     <div class="card-title p-2 ">
                         <h2 class="text-center">Admin Account Information</h2>
-                        <div class="d-flex justify-content-between align-items-center">
-                            {{-- <a href="#" data-url="{{ route('user.create') }}" data-modal-title="Create User"
-                                class="btn btn-primary open-modal">Create User</a> --}}
-                            {{-- Search Users --}}
-                            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                                <form action="{{ route('user.index') }}" method="GET"
-                                    class="d-flex align-items-center gap-2">
-                                    <input type="text" name="search" placeholder="Search..." class="form-control p-3"
-                                        value="{{ request('search') }}">
-                                    <button type="submit" class="btn btn-outline-primary">Search</button>
-                                    <a href="{{ route('user.index') }}" class="btn btn-outline-secondary">Clear</a>
-                                </form>
-                            </div> --}}
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-sm">
