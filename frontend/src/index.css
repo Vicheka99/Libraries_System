@@ -18,7 +18,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 18px;
+  gap: 28px;
   padding: 15px 40px;
   border-bottom: 1px solid var(--border);
   background-color: var(--bg-soft);
@@ -48,8 +48,7 @@ body {
 nav ul {
   display: flex;
   list-style: none;
-  gap: 6px;
-  padding-top: 10px;
+  gap: 50px;
 }
 .g-link {
   display: inline-block;
@@ -78,7 +77,7 @@ nav ul {
   color: #666;
 }
 .g-search input {
-  padding: 10px 12px 10px 34px; /* icon space */
+  padding: 10px 12px 10px 14px; /* icon space */
   border: 1px solid #ccc;
   border-radius: 8px;
   outline: none;
