@@ -7,7 +7,7 @@
   --bg: #fff;
   --bg-soft: #fafafa;
 }
-html, body { height: 100%; }
+html, body { height: 100%; overflow-y: auto; }
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -18,16 +18,20 @@ body {
 #root { max-width: none; padding: 0; text-align: initial; }
 
 /* ===== Header ===== */
-.g-header{
+.g-header {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
   padding: 12px 20px;
   border-bottom: 1px solid var(--border);
-  background-color:#EDEDED;
-  position: sticky; top:0; z-index:10;
-
+  background-color: #EDEDED;
+  position: fixed;       /* ← change sticky → fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;          /* stays above sidebar & books */
+  height: 72px;          /* define fixed height for layout consistency */
 }
 .g-logo{ display:flex; align-items:center; gap:10px; }
 .g-logo img{ width:48px; height:48px; object-fit:contain; }
@@ -45,7 +49,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
 .g-search input{
   width: 220px; max-width: 100%;
   padding: 10px 36px 10px 12px;
-  border: 1px solid #e5e7eb; border-radius: 10px;
+  border: 0px solid #e5e7eb; 
   background:#fff; outline:none;
 }
 .g-search input:focus{ border-color:#bfc3c7; }
@@ -58,11 +62,11 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
 }
 
 /* ===== Layout (Sidebar + Content) ===== */
-.g-main{
-  display:grid;
-  grid-template-columns: 220px minmax(0,1fr);
-  gap:24px;
-  padding:16px 24px;
+.g-main {
+  display: block;
+  margin-left: 260px; /* for sidebar */
+  padding: 16px 24px;
+  margin-top: 50px;   /* ← new: pushes content below header */
 }
 @media (max-width:900px){
   .g-main{ grid-template-columns: 1fr; gap:16px; padding:12px 16px; }
@@ -74,16 +78,15 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 24px 20px;
-  width: 220px;
-  height: fit-content;
-  position: sticky;
-  top: 80px; /* below header */
+  width: 215px;
+  height: 100%; /* full screen height */
+  position: fixed; /* stays always visible */
+  top:83px; /* just below the header */
+  left: 10px;
+  overflow-y: auto; /* scroll if sidebar too tall */
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  float: left;
-  margin-top: 32px;
-  margin-left: 7px;
-  position: sticky;
 }
+
 .g-sidebar ul {
   list-style: none;
   display: flex;
@@ -130,7 +133,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   border-radius:12px;
   padding:24px;
   width:100%;
-  max-width:1450px;        /* keep the cap */
+  max-width:1290px;        /* keep the cap */
   justify-self: start;     /* ← hug the sidebar */
   align-self: start;
   overflow: hidden;
@@ -154,6 +157,9 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   background:transparent;
   padding:0;
   text-align:left;
+}
+.book-card:hover {
+  transform: scale(1.01);
 }
 .book-cover{
   width:100%;

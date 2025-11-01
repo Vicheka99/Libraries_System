@@ -11,15 +11,14 @@ export default function App() {
   return (
     <>
       <Header />
-      <Sidebar/>
+      <Sidebar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/book-detail" element={<BookDetail />} />
       </Routes>
-      <div>
-      <Item/>
-    </div>
+       <Item/>
+      
     </>
     
   );
