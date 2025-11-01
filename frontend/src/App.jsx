@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header.jsx";
-import Sidebar from "./components/Sidebar.jsx"; 
+import Header from "./components/header.jsx";
+import Sidebar from "./components/sidebar.jsx"; 
 import Item from "./components/Item.jsx"; 
 import Home from "./pages/Home.jsx";
 import Popular from "./pages/Popular.jsx";
@@ -20,6 +20,5 @@ export default function App() {
        <Item/>
       
     </>
-    
   );
 }
