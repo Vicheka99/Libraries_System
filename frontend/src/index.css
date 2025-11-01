@@ -130,7 +130,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   border-radius:12px;
   padding:24px;
   width:100%;
-  max-width:1670px;        /* keep the cap */
+  max-width:1450px;        /* keep the cap */
   justify-self: start;     /* ← hug the sidebar */
   align-self: start;
   overflow: hidden;
