@@ -1,67 +1,36 @@
-import Sidebar from "../components/sidebar";
-import Header from "../components/header";
+// src/pages/Popular.jsx
+import { useMemo } from "react";
+
+const POPULAR = [
+  { id: 1, title: "The 7 Habits of Highly Effective People", author: "Stephen R. Covey", cover: "/images/Book/Book1.jpg", score: 98 },
+  { id: 2, title: "The 48 Laws of Power", author: "Robert Greene", cover: "/images/Book/Book2.jpg", score: 96 },
+  { id: 3, title: "The Four Agreements", author: "Don Miguel Ruiz", cover: "/images/Book/Book3.jpg", score: 95 },
+  { id: 4, title: "XOXO", author: "Axie Oh", cover: "/images/Book/Book4.jpg", score: 93 },
+  { id: 5, title: "Together Once More", author: "Ayriessyuhada", cover: "/images/Book/Book5.jpg", score: 92 },
+  { id: 6, title: "Drifting Home", author: "Netflix", cover: "/images/Book/Book6.jpg", score: 90 },
+  { id: 7, title: "Sing If You Can't Dance", author: "Alexia Casale", cover: "/images/Book/Book7.jpg", score: 89 },
+  { id: 8, title: "The Songs You’ve Never Heard", author: "Becky Jerams", cover: "/images/Book/Book8.jpg", score: 88 },
+];
 
 export default function Popular() {
-  const popular = [
-    { id: 101, title: "The 48 Laws of Power", author: "Robert Greene", image: "Image/books/power.jpg", borrows: 982 },
-    { id: 102, title: "Atomic Habits", author: "James Clear", image: "/Image/books/atomic-habits.jpg", borrows: 911 },
-    { id: 103, title: "The Four Agreements", author: "Don Miguel Ruiz", image: "/Image/books/four-agreements.jpg", borrows: 876 },
-    { id: 104, title: "The Subtle Art of Not Giving a F*ck", author: "Mark Manson", image: "/Image/books/subtle-art.jpg", borrows: 862 },
-    { id: 105, title: "The 7 Habits of Highly Effective People", author: "Stephen R. Covey", image: "/Image/books/seven-habits.jpg", borrows: 844 },
-    { id: 106, title: "Deep Work", author: "Cal Newport", image: "/Image/books/deep-work.jpg", borrows: 799 },
-    { id: 107, title: "Can’t Hurt Me", author: "David Goggins", image: "/Image/books/cant-hurt-me.jpg", borrows: 786 },
-    { id: 108, title: "Outliers", author: "Malcolm Gladwell", image: "/Image/books/outliers.jpg", borrows: 755 },
-  ];
-
-  // simple sort: highest borrows first
-  const sorted = [...popular].sort((a, b) => b.borrows - a.borrows);
-
+  const ranked = useMemo(() => [...POPULAR].sort((a,b)=>b.score-a.score), []);
   return (
-    <>
-      <Header />
-      <main className="g-main">
-        <Sidebar />
-
-        <section className="book-section">
-          <h2 className="page-title">Popular</h2>
-
-          <div className="book-grid">
-            {sorted.map((book) => (
-              <article key={book.id} className="book-card">
-                <div style={{ position: "relative" }}>
-                  <img
-                    src={book.image}
-                    alt={book.title}
-                    className="book-cover"
-                    loading="lazy"
-                  />
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: 8,
-                      left: 8,
-                      padding: "4px 8px",
-                      fontSize: 12,
-                      fontWeight: 700,
-                      background: "#111827",
-                      color: "#fff",
-                      borderRadius: 999,
-                    }}
-                  >
-                    Top
-                  </span>
-                </div>
-
-                <h3 className="book-title">{book.title}</h3>
-                <p className="book-author">Written by {book.author}</p>
-                <p style={{ color: "#6b7280", fontSize: 13, marginTop: 4 }}>
-                  {book.borrows.toLocaleString()} borrows
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
+    <main className="g-main g-main--single">
+      <section className="rank-panel">
+        <h1 className="rank-title">Most Popular Book</h1>
+        <ol className="rank-list">
+          {ranked.map((b, i) => (
+            <li key={b.id} className="rank-item">
+              <div className="rank-num">{i + 1}</div>
+              <img className="rank-cover" src={b.cover} alt={b.title} loading="lazy" />
+              <div className="rank-meta">
+                <h3 className="rank-book">{b.title}</h3>
+                <p className="rank-author">Written by {b.author}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </main>
   );
 }
