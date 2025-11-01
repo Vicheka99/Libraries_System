@@ -1,20 +1,20 @@
+
 @extends('master')
+
 @section('content')
-<div class="card-body">
+    <div class="card-body">
     <div class="d-md-flex align-items-center">
         <div>
-            <h4 class="card-title">Products Performance</h4>
+            <h4 class="card-title">Book</h4>
             <p class="card-subtitle">
-                Ample Admin Vs Pixel Admin
+                Manage book list.
             </p>
         </div>
-        <div class="ms-auto mt-3 mt-md-0">
-            <select class="form-select theme-select border-0"
-                aria-label="Default select example">
-                <option value="1">March 2025</option>
-                <option value="2">March 2025</option>
-                <option value="3">March 2025</option>
-            </select>
+        <div class="ms-auto">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
     <div class="table-responsive mt-4">
