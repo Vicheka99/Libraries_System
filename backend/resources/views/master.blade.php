@@ -45,13 +45,28 @@
                                     <span class="hide-menu">DashBoard</span>
                                 </div>
                             </a>
-                            <a class="sidebar-link justify-content-between" href="{{route('user.index')}}" aria-expanded="false">
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link justify-content-between"
+                                href="#" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
                                         <i class="ti ti-aperture"></i>
                                     </span>
                                     <span class="hide-menu">Admin</span>
                                 </div>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link justify-content-between"
+                                href="{{ route('books') }}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                <span class="d-flex">
+                                    <i class="bi bi-journals"></i>
+                                </span>
+                                <span class="hide-menu">Books</span>
+                                </div>
+
                             </a>
                         </li>
                     </ul>
@@ -126,16 +141,26 @@
                     </div>
                 </nav>
             </header>
+
+            <!-- @yield('status-content') -->
             <!--  Header End -->
             <div class="body-wrapper-inner">
-                @yield('content')
+                <div class="col-12">
+                    <div class="card">
+                        @yield('content')
+
+                    </div>
+                </div>
             </div>
+
+>>>>>>> koemhong
             <div class="py-6 px-6 text-center">
                 <p class="mb-0 fs-4">Design and Developed by <a href="#"
                         class="pe-1 text-primary text-decoration-underline">Wrappixel.com</a> Distributed by <a
                         href="https://themewagon.com" target="_blank">ThemeWagon</a></p>
             </div>
         </div>
+
     </div>
     <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
