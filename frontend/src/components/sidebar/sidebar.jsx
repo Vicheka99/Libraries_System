@@ -5,7 +5,7 @@ export default function Sidebar() {
     <aside className="g-sidebar">
       <ul>
         <li>
-          <NavLink to="/romance" className="g-sidebar-link">
+          <NavLink to="/" className="g-sidebar-link">
             <strong>Home Page</strong>
           </NavLink>
         </li>

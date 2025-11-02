@@ -1,8 +1,8 @@
 // src/pages/Home.jsx
-import Sidebar from "../components/sidebar/sidebar.jsx";
+import Sidebar from "../components/sidebar/sidebarfan.jsx";
 import Item from "../components/Item.jsx";
 
-export default function Home() {
+export default function Fantasy() {
   return (
     <main className="g-main">
       <Sidebar />

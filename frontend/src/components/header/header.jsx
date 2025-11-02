@@ -13,7 +13,7 @@ export default function Header() {
         <ul>
           <li>
             <NavLink to="/" end className="g-link">
-              Home
+              <strong>Home</strong>
             </NavLink>
           </li>
           <li>
