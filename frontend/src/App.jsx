@@ -6,6 +6,7 @@ import Popular from "./pages/Popular.jsx";
 import BookDetail from "./pages/BookDetail.jsx";
 // in App.jsx routes (inside the Layout)
 import About from "./pages/About.jsx";
+import About from "./pages/Borrow.jsx";
 
 
 function Layout() {
