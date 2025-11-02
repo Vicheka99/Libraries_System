@@ -492,7 +492,6 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
     grid-template-columns: 1fr;
   }
 }
-///////////////
 .borrow-container {
   display: flex;
   gap: 2rem;
