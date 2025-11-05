@@ -1,9 +1,11 @@
-import { NavLink } from "react-router-dom";
+// src/components/Item.jsx
+import { Link } from "react-router-dom";
+
 export default function Item() {
   const books = [
     {
       id: 1,
-      title: "XOXO",
+      title: "XOdXO",
       author: "Stephen R. Covey",
       image: "/images/Book/Book1.jpg",
     },
@@ -11,11 +13,11 @@ export default function Item() {
       id: 2,
       title: "Together Once More",
       author: "Robert Greene",
-      image: "/images//Book/Book2.jpg",
+      image: "/images/Book/Book2.jpg",
     },
     {
       id: 3,
-      title: "DRIFING HOME",
+      title: "DRIFTING HOME",
       author: "Don Miguel Ruiz",
       image: "/images/Book/Book3.jpg",
     },
@@ -51,7 +53,7 @@ export default function Item() {
     },
     {
       id: 9,
-      title: "my CAPRICORN friend",
+      title: "My CAPRICORN Friend",
       author: "Don Miguel Ruiz",
       image: "/images/Book/Book9.jpg",
     },
@@ -63,51 +65,27 @@ export default function Item() {
     },
     {
       id: 11,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book11.jpg",
-    },
-    {
-      id: 12,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book12.jpg",
-    },
-    {
-      id: 13,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book12.jpg",
-    },
-    {
-      id: 14,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book13.jpg",
-    },
-    {
-      id: 15,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book14.jpg",
-    },
-    {
-      id: 16,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Book15.jpg",
+      title: "The Newjkh Kid in School",
+      author: "Don Miguel Rduiz",
+      image: "/images/Book/Book10.jpg",
     },
   ];
 
-  return (
+return (
     <section className="book-section">
       <div className="book-grid">
-        {books.map((book, index) => (
-          <div key={index} className="book-card">
+        {books.map(book => (
+          <Link
+            key={book.id}
+            to={`/books/${book.id}`}      // ← dynamic route
+            state={{ book }}              // ← pass full book data
+            className="book-card"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <img src={book.image} alt={book.title} className="book-cover" />
             <h3 className="book-title">{book.title}</h3>
             <p className="book-author">Written by {book.author}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

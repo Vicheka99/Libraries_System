@@ -7,6 +7,8 @@ import BookDetail from "./pages/BookDetail.jsx";
 // in App.jsx routes (inside the Layout)
 import About from "./pages/About.jsx";
 import Fantasy from "./pages/fantasy.jsx";
+import Children from "./pages/Children.jsx";
+import SelfHelp from "./pages/Selfhelp.jsx";
 
 
 function Layout() {
@@ -27,6 +29,10 @@ export default function App() {
         <Route path="/book-detail" element={<BookDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/fantasy" element={<Fantasy />} />
+        <Route path="/child" element={<Children />} />
+        <Route path="/self-help" element={<SelfHelp />} />
+      {/* One dynamic page for ALL books */}
+        <Route path="/books/:id" element={<BookDetail />} />
       </Route>
     </Routes>
   );

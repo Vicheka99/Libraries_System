@@ -15,7 +15,7 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/children" className="g-sidebar-link">
+          <NavLink to="/child" className="g-sidebar-link">
             Children’s Books
           </NavLink>
         </li>

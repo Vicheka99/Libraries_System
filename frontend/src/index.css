@@ -492,3 +492,90 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Book Detail Page ===== */
+.detail-page { position: relative; padding-bottom: 40px; }
+
+/* soft gradient banner behind content */
+.detail-hero {
+  height: 200px;
+  background:
+    radial-gradient(1200px 600px at 50% -200px, rgba(165,180,252,.35), transparent 60%),
+    linear-gradient(180deg, #f6f7fb, #f1f3f4 60%);
+}
+
+/* two-column layout */
+.detail-wrap {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 28px;
+  margin-top: -120px;           /* pull content into hero */
+  background: #fff;
+  border: 1px solid #e7e8ea;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+/* left: big cover */
+.detail-cover img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 26px rgba(0,0,0,.10);
+}
+
+/* right: info */
+.detail-title {
+  font-size: clamp(24px, 3.2vw, 36px);
+  line-height: 1.15;
+  margin: 6px 0 8px;
+  font-weight: 800;
+}
+.detail-author {
+  color: #6b7280;
+  margin: 0 0 14px;
+}
+.detail-author span {
+  font-weight: 700; color: #111; margin-right: 6px;
+}
+.detail-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2b2b2b;
+}
+
+/* small gallery */
+.detail-thumbs {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0 12px;
+}
+.detail-thumbs img {
+  width: 90px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e7e8ea;
+}
+
+/* actions */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: 1px solid #e7e8ea;
+  background: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn--primary { background: #111; color: #fff; border-color: #111; }
+.btn--ghost   { background: #fff; color: #111; }
+.btn--link    { background: transparent; border-color: transparent; }
+.detail-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .detail-wrap { grid-template-columns: 1fr; }
+}

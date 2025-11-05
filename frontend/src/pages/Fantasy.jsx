@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
-import Sidebar from "../components/sidebar/sidebarfan.jsx";
-import Item from "../components/Item.jsx";
+import Sidebar from "../components/sidebar/fantasy.jsx";
+import Item from "../components/Item/fantasy.jsx";
 
 export default function Fantasy() {
   return (
