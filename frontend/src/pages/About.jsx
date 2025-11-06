@@ -1,20 +1,71 @@
+
+
+/* ============================
+   EASY CONFIG (edit these)
+============================ */
+const HERO = {
+  image: "/images/Image/cover/cover1.jpg", // change path if needed
+  title: "About Us",
+  subtitle:
+    "From preschool to pre-tertiary, our students enjoy fun, interactive and relevant lessons and are empowered to think beyond the confines of the classroom.",
+  ctaText: "See More",
+  ctaHref: "#about-more",
+};
+
+const INFO_CARDS = [
+  {
+    title: "Our Mission",
+    text:
+      "Inspire a lifelong love of reading by providing inclusive access to books, technology, and supportive learning spaces.",
+  },
+  {
+    title: "What We Do",
+    text:
+      "We curate collections, run clubs and workshops, and partner with schools to make research and literacy engaging for everyone.",
+  },
+  {
+    title: "Our Values",
+    text:
+      "Accessibility, curiosity, and community. We believe knowledge should be welcoming, discoverable, and fun.",
+  },
+];
+
+const MEMBERS = [
+  {
+    group: "UX/UI & Design",
+    people: ["Sok Chomroeun", "Oum Chansopheap", "Un Rithy Reach"],
+  },
+  {
+    group: "Data Analysis",
+    people: ["Seung Wannet", "Sum Virakroth"],
+  },
+  {
+    group: "Frontend",
+    people: ["Sien KimYong", "Sophy David", "Vath Bundavit"],
+  },
+  {
+    group: "Backend & Deploy",
+    people: ["Leng Lyhour", "SuLi", "Suy Koemhong"],
+  },
+];
+
+/* ============================
+            PAGE
+  <main className="g-main g-main--single"> … </main>  
+============================ */
 export default function About() {
   return (
-    <main className="g-main g-main--single">
+    <main className="g-main g-main--single g-main--singlepage--fullbleed"> 
       {/* HERO */}
       <section
         className="about-hero"
-        style={{ "--hero-image": "url(/images/Image/cover/cover1.jpg)" }}
+        style={{ "--hero-image": `url(${HERO.image})` }}
       >
         <div className="about-hero__content">
-          <h1 className="about-title">About Us</h1>
-          <p className="about-subtitle">
-            From preschool to pre-tertiary, our students enjoy fun, interactive
-            and relevant lessons and are empowered to think beyond the confines
-            of the classroom.
-          </p>
-          <a href="#about-more" className="btn btn--light">
-            See More
+          <h1 className="about-title">{HERO.title}</h1>
+          <p className="about-subtitle">{HERO.subtitle}</p>
+          <a href={HERO.ctaHref} className="btn btn--light">
+            {HERO.ctaText}
           </a>
         </div>
       </section>
@@ -22,27 +73,12 @@ export default function About() {
       {/* INFO GRID */}
       <section id="about-more" className="about-panel">
         <div className="about-grid">
-          <div className="about-card">
-            <h3>Our Mission</h3>
-            <p>
-              Inspire a lifelong love of reading by providing inclusive access
-              to books, technology, and supportive learning spaces.
-            </p>
-          </div>
-          <div className="about-card">
-            <h3>What We Do</h3>
-            <p>
-              We curate collections, run clubs and workshops, and partner with
-              schools to make research and literacy engaging for everyone.
-            </p>
-          </div>
-          <div className="about-card">
-            <h3>Our Values</h3>
-            <p>
-              Accessibility, curiosity, and community. We believe knowledge
-              should be welcoming, discoverable, and fun.
-            </p>
-          </div>
+          {INFO_CARDS.map((c) => (
+            <div className="about-card" key={c.title}>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -50,33 +86,18 @@ export default function About() {
       <section className="about-members">
         <h2 className="member-title">
           Member
-          <span className="member-highlight"></span>
+          <span className="member-highlight" />
         </h2>
 
         <div className="member-grid">
-          <div className="member-col">
-            <h3>Ux/UI & Design</h3>
-            <p>Sok Chomroeun</p>
-            <p>Oum Chansopheap</p>
-            <p>Un Rithy Reach</p>
-          </div>
-          <div className="member-col">
-            <h3>Data Analysis</h3>
-            <p>Seung Wannet</p>
-            <p>Sum Virakroth</p>
-          </div>
-          <div className="member-col">
-            <h3>Frontend</h3>
-            <p>Sien KimYong</p>
-            <p>Sophy David</p>
-            <p>Vath Bundavit</p>
-          </div>
-          <div className="member-col">
-            <h3>Backend & Deploy</h3>
-            <p>Leng Lyhour</p>
-            <p>SuLi</p>
-            <p>Suy Koemhong</p>
-          </div>
+          {MEMBERS.map((col) => (
+            <div className="member-col" key={col.group}>
+              <h3>{col.group}</h3>
+              {col.people.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
     </main>

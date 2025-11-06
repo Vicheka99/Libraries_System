@@ -22,8 +22,8 @@ export default function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/book-detail" className="g-link">
-              Book Detail
+            <NavLink to="/donations" className="g-link">
+              Donations
             </NavLink>
           </li>
           <li>

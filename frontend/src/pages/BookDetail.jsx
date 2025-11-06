@@ -50,7 +50,11 @@ export default function BookDetail() {
 
           <div className="detail-actions">
             <button className="btn btn--primary">Read Online</button>
-            <button className="btn btn--ghost">Borrow</button>
+              <Link
+                to={`/borrow/${book.id}`}
+                state={{ book }}                 // pass book to Borrow page
+                className="btn btn--primary"
+                style={{ textDecoration:"none" }}>Borrow</Link>
             <Link to="/" className="btn btn--link">← Back Home</Link>
           </div>
         </section>
@@ -58,3 +62,8 @@ export default function BookDetail() {
     </main>
   );
 }
+
+
+
+
+

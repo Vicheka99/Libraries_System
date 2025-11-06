@@ -9,8 +9,8 @@ import About from "./pages/About.jsx";
 import Fantasy from "./pages/fantasy.jsx";
 import Children from "./pages/Children.jsx";
 import SelfHelp from "./pages/Selfhelp.jsx";
-
-
+import Donations from './pages/Donations.jsx';
+import Borrow from "./pages/Borrow.jsx"; // 👈 new
 function Layout() {
   return (
     <>
@@ -27,13 +27,16 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/book-detail" element={<BookDetail />} />
+        <Route path="/donations" element={<Donations />} />
         <Route path="/about" element={<About />} />
         <Route path="/fantasy" element={<Fantasy />} />
         <Route path="/child" element={<Children />} />
         <Route path="/self-help" element={<SelfHelp />} />
       {/* One dynamic page for ALL books */}
         <Route path="/books/:id" element={<BookDetail />} />
+        <Route path="/borrow/:id" element={<Borrow />} />  {/* 👈 new */}
       </Route>
     </Routes>
   );
 }
+
