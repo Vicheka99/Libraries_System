@@ -11,17 +11,22 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink to="/fantasy" className="g-sidebar-link">
-            Fantasy Fantasy and Science
+            <strong>Khmer literature</strong>
           </NavLink>
         </li>
         <li>
           <NavLink to="/child" className="g-sidebar-link">
-            <strong>Children’s Books</strong>
+            Education & research
           </NavLink>
         </li>
         <li>
           <NavLink to="/self-help" className="g-sidebar-link">
             Self-help’s Books
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/tech" className="g-sidebar-link">
+            Techonology & Science
           </NavLink>
         </li>
       </ul>

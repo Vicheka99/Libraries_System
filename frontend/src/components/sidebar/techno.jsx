@@ -6,7 +6,7 @@ export default function Sidebar() {
       <ul>
         <li>
           <NavLink to="/" className="g-sidebar-link">
-            <strong>Home Page</strong>
+            Home Page
           </NavLink>
         </li>
         <li>
@@ -26,7 +26,7 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink to="/tech" className="g-sidebar-link">
-            Techonology & Science
+            <strong>Techonology & Science</strong>
           </NavLink>
         </li>
       </ul>

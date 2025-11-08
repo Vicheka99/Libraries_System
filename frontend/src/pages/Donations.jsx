@@ -46,7 +46,7 @@ export default function Donate() {
 
           {/* Right form */}
           <aside className="don-card" aria-label="Donation form">
-
+            <img src="/images/Image/bank/bank1.png" alt="donation" className="don-card__img" />
           </aside>
         </div>
       </section>

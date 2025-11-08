@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
-import Sidebar from "../components/sidebar/fantasy.jsx";
-import Item from "../components/Item/fantasy.jsx";
+import Sidebar from "../components/sidebar/Khmerliterature.jsx";
+import Item from "../components/Item/khmerliterature.jsx";
 
 export default function Fantasy() {
   return (

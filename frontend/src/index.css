@@ -367,7 +367,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
 /* ===== About: Panel below hero ===== */
 .about-panel{
   background:#fff;
-  border:1px solid #0055ff;
+  border: 1px solid #e7e7e7;
   border-radius:12px;
   padding: 20px;
   
@@ -378,7 +378,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   gap: 18px;
 }
 .about-card{
-  border: 1px solid #0080ff;
+  border: 1px solid #e7e7e7;
   border-radius: 12px;
   padding: 16px;
   background: #fff;
@@ -612,7 +612,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   position: relative;
   width: 100%;
   min-height: clamp(300px, 42vh, 420px);
-  background: url("/images/donate-hero.jpg") center/cover no-repeat;
+  background: url('/images/Image/cover/cover2.jpg') center/cover no-repeat;
   display: grid;
   place-items: center;
 }
@@ -623,6 +623,9 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
 .don-hero__content{
   position: relative; text-align: center; color: #fff;
   padding: 20px; max-width: 900px;
+}
+.don-card__img{
+  width: 100%; max-width: 480px; margin-bottom: 16px;
 }
 .don-hero__title{
   font-size: clamp(28px, 5vw, 48px);

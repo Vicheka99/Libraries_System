@@ -105,7 +105,6 @@ export default function Borrow() {
 
             <div className="actions">
               <button className="btn btn--primary" type="submit">Borrow Now</button>
-              <Link to={`/books/${id}`} className="btn btn--link">← Back to book</Link>
             </div>
           </form>
         </section>
