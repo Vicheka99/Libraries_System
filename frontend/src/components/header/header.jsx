@@ -1,0 +1,43 @@
+import { NavLink } from "react-router-dom";
+
+
+export default function Header() {
+  return (
+    <header className="g-header">
+      <div className="g-logo">
+        <img src="/images/Image/logo/GenZ_logo.png" alt="GENZ Library Logo" />
+        <h2>GEN Z Library</h2>
+      </div>
+
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/" end className="g-link">
+              <strong>Home</strong>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/popular" className="g-link">
+              Popular
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/donations" className="g-link">
+              Donations
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" className="g-link">
+              About Us
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="g-search">
+        <i className="bi bi-search" aria-hidden="true"></i>
+        <input type="text" placeholder="Search for books" aria-label="Search for books" />
+      </div>
+    </header>
+  );
+}

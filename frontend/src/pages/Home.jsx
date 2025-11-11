@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
-import Sidebar from "../components/sidebar.jsx";
-import Item from "../components/Item.jsx";
+import Sidebar from "../components/sidebar/home.jsx";
+import Item from "../components/Item/home.jsx";
 
 export default function Home() {
   return (
