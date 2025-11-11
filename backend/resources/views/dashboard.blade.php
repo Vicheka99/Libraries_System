@@ -1,10 +1,7 @@
 @extends('master')
 @section('content')
-<<<<<<< HEAD
     <div class="col-12">
                     <div class="card">
-=======
->>>>>>> koemhong
                         <div class="card-body">
                             <div class="d-md-flex align-items-center">
                                 <div>
@@ -142,9 +139,6 @@
                                 </table>
                             </div>
                         </div>
-<<<<<<< HEAD
                     </div>
                 </div>
-=======
->>>>>>> koemhong
 @endsection

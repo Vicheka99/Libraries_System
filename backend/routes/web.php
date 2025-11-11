@@ -4,18 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BookController;
 use Spatie\FlareClient\View;
-
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
-// Route::get('/books', function () {
-//     return view('books');
-// })->name('books');
-Route::get('/', function(){return view('dashboard');})->name('dashboard');
-Route::get('/books', [BookController::class, 'index'])->name('books');
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Auth\AuthenticationController;
 
+// Route::get('/', function(){return view('dashboard');})->name('dashboard');
+Route::resource('books', BookController::class);
+Route::get('/categories/all', [App\Http\Controllers\BookController::class, 'categories'])->name('categories.all');
+Route::post('/books/upload-temp', [App\Http\Controllers\BookController::class, 'uploadTemp'])->name('books.uploadTemp');
 Route::get('/index', function () {
     return view('master');
 });
