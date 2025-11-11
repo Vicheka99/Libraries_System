@@ -27,11 +27,19 @@ class generateadmin extends Command
      */
     public function handle()
     {
+        $email = $this->argument('email');
+
+        // prevent duplicate admins
+        if (User::where('email', $email)->exists()) {
+            $this->error('❌ This email is already used.');
+            return;
+        }
+
         $name = $this->argument('username');
         $email = $this->argument('email');
         $password = $this->argument('password');
         $user = User::create([
-           User::FIRST_NAME => $name,
+           User::NAME => $name,
            User::GENDER => 'Male',
            User::EMAIL => $email,
            User::PASSWORD => Hash::make($password),

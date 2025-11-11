@@ -56,6 +56,14 @@
                                     <span class="hide-menu">Admin</span>
                                 </div>
                             </a>
+                            <a class="sidebar-link justify-content-between" href="{{route('borrower.index')}}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="d-flex">
+                                        <i class="ti ti-aperture"></i>
+                                    </span>
+                                    <span class="hide-menu">Borrower</span>
+                                </div>
+                            </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link justify-content-between"
@@ -132,7 +140,7 @@
                                             <i class="ti ti-list-check fs-6"></i>
                                             <p class="mb-0 fs-3">My Task</p>
                                         </a>
-                                        <a href="./authentication-login.html"
+                                        <a href="./logout"
                                             class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                                     </div>
                                 </div>
@@ -162,15 +170,15 @@
         </div>
 
     </div>
-    <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/sidebarmenu.js"></script>
-    <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="./assets/js/dashboard.js"></script>
+    <script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+    <script src="{{asset('assets/js/app.min.js')}}"></script>
+    <script src="{{asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+    <script src="{{asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
+    <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-</body>
+</body s>
 
 </html>
