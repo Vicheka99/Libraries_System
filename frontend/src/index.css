@@ -81,8 +81,8 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
   width: 215px;
   height: 100%; /* full screen height */
   position: fixed; /* stays always visible */
-  top:83px; /* just below the header */
-  left: 10px;
+  top:86px; /* just below the header */
+  left: 35px;
   overflow-y: auto; /* scroll if sidebar too tall */
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
