@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('genders', function (Blueprint $table) {
-            $table->id(); // gender id
+            $table->id('genderID'); // Changed from id() to genderID
             $table->string('gender'); // e.g., Male, Female
         });
 
