@@ -1,4 +1,4 @@
-<?php
+git reset --hard origin/main<?php
 
 return [
 

@@ -1,0 +1,111 @@
+/* Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --text: #222;
+  --muted: #5d5e60;
+  --border: #ddd;
+  --bg: #fff;
+  --bg-soft: #fafafa;
+}
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Header */
+.g-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  padding: 15px 40px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-soft);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo area */
+.g-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.g-logo img {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  object-fit: contain;
+}
+.g-logo h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Nav */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+}
+.g-link {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+.g-link:hover,
+.g-link.active {
+  color: #2e2f30;
+  background: #f0f1f3;
+}
+
+/* Search */
+.g-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.g-search i {
+  position: absolute;
+  left: 10px;
+  font-size: 18px;
+  color: #666;
+}
+.g-search input {
+  padding: 10px 12px 10px 14px; /* icon space */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+}
+.g-search input:focus {
+  border-color: #5d5e60;
+}
+
+/* Main */
+.g-main {
+  display: flex;
+  padding: 20px 40px;
+}
+.g-main-box {
+  flex: 1;
+  min-height: 280px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .g-header { flex-wrap: wrap; padding: 12px 16px; gap: 10px; }
+  nav ul { padding-top: 0; flex-wrap: wrap; }
+  .g-search { width: 100%; order: 3; }
+  .g-search input { width: 100%; }
+  .g-main { padding: 16px; }
+}
