@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-<div class="container mt-5
+    <div class="container mt-5
 ">
         <div class="row gy-6">
             <div class="col-12">
@@ -8,11 +8,11 @@
                     <div class="card-title p-2 ">
                         <h2 class="text-center">Borrower Information</h2>
                         <div class="d-flex justify-content-between align-content-center  mb-3">
-                        <div class="card-title p-2">
-                            <button data-url="" class="btn btn-primary open-modal"
-                                data-modal-title="Create Task">+Borrower</button>
+                            <button type="button" class="btn btn-primary" data-action="show"
+                                data-url="{{ route('borrower.create') }}" data-modal-title="Borrower Form">
+                                +Borrower
+                            </button>
                         </div>
-                    </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-sm">

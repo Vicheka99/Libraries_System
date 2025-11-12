@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\BookController;
+use App\Models\Borrower;
 use Spatie\FlareClient\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\Auth\AuthenticationController;
 
 // Route::get('/', function(){return view('dashboard');})->name('dashboard');
@@ -26,4 +26,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/borrower', [App\Http\Controllers\BorrowerController::class, 'index'])->name('borrower.index');
     Route::post('/borrower/create', [App\Http\Controllers\BorrowerController::class, 'create'])->name('borrower.create');
+
+    Route::resource('borrower', BorrowerController::class);
 });
