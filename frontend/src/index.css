@@ -33,6 +33,10 @@ body {
   z-index: 100;          /* stays above sidebar & books */
   height: 72px;          /* define fixed height for layout consistency */
 }
+.g-header:hover { color: #000; }
+.g-header strong {
+
+}
 .g-logo{ display:flex; align-items:center; gap:10px; }
 .g-logo img{ width:48px; height:48px; object-fit:contain; }
 .g-logo h2{ font-size:18px; font-weight:700; }
@@ -597,7 +601,7 @@ nav ul{ display:flex; list-style:none; gap:28px; margin:0; padding:0; justify-co
 }
 .btn--primary { background: #111; color: #fff; border-color: #111; }
 .btn--ghost   { background: #fff; color: #111; }
-.btn--link    { background: transparent; border-color: transparent; }
+.btn--link    { background:#72D0DB ; border-color: transparent;color:white;text-align:center; }
 .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
 
 /* responsive */

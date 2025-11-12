@@ -45,7 +45,7 @@ export default function BookDetail() {
           <div className="detail-thumbs">
             <img src={book.image || book.coverUrl} alt="" />
             <img src={book.image || book.coverUrl} alt="" />
-            <img src="/images/Book/books-icon.png" alt="" />
+            <img src="/images/Book/books-ic" alt="" />
           </div>
 
           <div className="detail-actions">
