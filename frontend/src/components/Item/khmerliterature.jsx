@@ -5,70 +5,65 @@ export default function Item() {
   const books = [
     {
       id: 1,
-      title: "XOXO",
+      title: "Our Story",
       author: "Stephen R. Covey",
-      image: "/images/Book/Book1.jpg",
+      image: "/images/Book/Khmerliterature/book1.jpg",
     },
     {
       id: 2,
-      title: "Together Once More",
+      title: "Temple Of preah Vihear Samphos",
       author: "Robert Greene",
-      image: "/images/Book/Book2.jpg",
+      image: "/images/Book/Khmerliterature/book2.jpg",
     },
     {
       id: 3,
-      title: "DRIFTING HOME",
+      title: "Toum Teav",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book3.jpg",
+      image: "/images/Book/Khmerliterature/book3.jpg",
     },
     {
       id: 4,
-      title: "Sing If You Can't Dance",
+      title: "The Flowers Withered",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book4.jpg",
+      image: "/images/Book/Khmerliterature/book4.jpg",
     },
     {
       id: 5,
-      title: "The SONGS you're NEVER Heard",
+      title: "Love Fades Away",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book5.jpg",
+      image: "/images/Book/Khmerliterature/book5.jpg",
     },
     {
       id: 6,
       title: "16 October",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book6.jpg",
+      image: "/images/Book/Khmerliterature/book6.jpg",
     },
     {
       id: 7,
       title: "Our walk Home",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book7.jpg",
+      image: "/images/Book/Khmerliterature/book7.jpg",
     },
     {
       id: 8,
       title: "Lovers By The Sea",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book8.jpg",
+      image: "/images/Book/Khmerliterature/book8.jpg",
     },
     {
       id: 9,
       title: "My CAPRICORN Friend",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book9.jpg",
+      image: "/images/Book/Khmerliterature/book9.jpg",
     },
     {
       id: 10,
       title: "The New Kid in School",
       author: "Don Miguel Ruiz",
-      image: "/images/Book/Book10.jpg",
+      image: "/images/Book/Khmerliterature/book10.jpg",
     },
-    {
-      id: 11,
-      title: "The Newjkh Kid in School",
-      author: "Don Miguel Rduiz",
-      image: "/images/Book/Book10.jpg",
-    },
+   
   ];
 
 return (

@@ -66,9 +66,15 @@ export default function Item() {
     },
     {
       id: 11,
-      title: "The Newjkh Kid in School",
+      title: "Why Don't We?",
       author: "Don Miguel Rduiz",
-      image: "/images/Book/Book10.jpg",
+      image: "/images/Book/Book11.jpg",
+    },
+    {
+      id: 12,
+      title: "IT ENDS WITH US",
+      author: "Don Miguel Rduiz",
+      image: "/images/Book/Book12.jpg",
     },
   ];
 
