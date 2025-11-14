@@ -33,10 +33,13 @@ body {
   z-index: 100;          /* stays above sidebar & books */
   height: 72px;          /* define fixed height for layout consistency */
 }
-.g-header:hover { color: #000; }
-.g-header strong {
-
-}a
+.g-header:hover{
+    color: #000;
+}
+.g-header.active {
+  font-weight: 700;
+  color: #000;
+}
 .g-logo{ display:flex; align-items:center; gap:10px; }
 .g-logo img{ width:48px; height:48px; object-fit:contain; }
 .g-logo h2{ font-size:18px; font-weight:700; }

@@ -5,7 +5,7 @@ export default function Item() {
   const books = [
     {
       id: 1,
-      title: "Okayyo",
+      title: "XOXO",
       author: "Stephen R. Covey",
       image: "/images/Book/Book1.jpg",
     },
