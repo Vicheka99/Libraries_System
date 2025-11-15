@@ -30,7 +30,7 @@ export default function Item() {
     {
       id: 5,
       title: "THE LOST WONDERLAND",
-      author: "Don Miguel Ruiz",
+      author: "Patricia Collins Wrede",
       image: "/images/Book/Education/book5.jpg",
     },
     {
@@ -42,7 +42,7 @@ export default function Item() {
     {
       id: 7,
       title: "CAMP OUT QUEST",
-      author: "Don Miguel Ruiz",
+      author: "Genevieve Bute",
       image: "/images/Book/Education/book7.jpg",
     },
     {
