@@ -11,27 +11,36 @@ use Illuminate\Support\Facades\File;
 class BookController extends Controller
 {
     // 1 INDEX - show all books
-    public function index()
+    public function index(Request $request)
     {
-        // Get all books with their category & author (relationship)
-        $books = Book::with(['author', 'category'])->get();
+        $categoryID = $request->category;
+        $search = $request->search;
 
-        return view('books.index', compact('books'));
-    }
+        $query = Book::with(['author', 'category']);
 
-    // 2 SEARCH - find books by title or author
-    public function search(Request $request)
-    {
-        $search = $request->input('query');
+        // -----------------------------
+        // ✔ Filter by category
+        // -----------------------------
+        if (!empty($categoryID)) {
+            $query->where('categoryID', $categoryID);
+        }
 
-        $books = Book::with(['author', 'category'])
-            ->where('title', 'like', "%{$search}%")
-            ->orWhereHas('author', function($q) use ($search) {
-                $q->where('author_name', 'like', "%{$search}%");
-            })
-            ->get();
+        // -----------------------------
+        // ✔ Search by title or author
+        // -----------------------------
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%")
+                ->orWhereHas('author', function($a) use ($search) {
+                    $a->where('author_name', 'like', "%$search%");
+                });
+            });
+        }
 
-        return view('books.index', compact('books'));
+        $books = $query->get();
+        $categories = Category::all();
+
+        return view('books.index', compact('books', 'categories', 'categoryID', 'search'));
     }
 
     // 3 CREATE - show form for adding book
@@ -45,7 +54,7 @@ class BookController extends Controller
     }
 
     // 4 STORE - save a new book
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -54,67 +63,57 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'stockQTY' => 'required|integer|min:0',
             'is_available_for_borrow' => 'nullable|boolean',
-            'file_path' => 'nullable|mimes:pdf|max:10240',
-            'front_cover' => 'nullable|string',
-            'back_cover' => 'nullable|string',
+            'front_cover_path' => 'nullable|string',
+            'back_cover_path' => 'nullable|string',
+            'file_path' => 'nullable|mimetypes:application/pdf|max:204800',
         ]);
 
-        // ✅ Get category folder (underscore-based)
-        $category = Category::find($data['categoryID']);
+        $category = \App\Models\Category::find($data['categoryID']);
         $categoryFolderName = strtolower(str_replace([' ', '&'], ['_', 'and'], $category->category_type));
-        $categoryFolder = public_path('assets/books/' . $categoryFolderName);
+        $categoryFolder = public_path("assets/books/" . $categoryFolderName);
+        if (!file_exists($categoryFolder)) mkdir($categoryFolder, 0777, true);
 
-        // ✅ Create folder if not exists
-        if (!file_exists($categoryFolder)) {
-            mkdir($categoryFolder, 0777, true);
-        }
-
-        // 🟢 Move front cover
-        if (!empty($data['front_cover']) && file_exists(public_path($data['front_cover']))) {
-            $newPath = 'assets/books/' . $categoryFolderName . '/' . basename($data['front_cover']);
-            File::move(public_path($data['front_cover']), public_path($newPath));
+        // Move front cover
+        if (!empty($data['front_cover_path'])) {
+            $temp = public_path($data['front_cover_path']);
+            $newPath = "assets/books/$categoryFolderName/" . basename($temp);
+            if (file_exists($temp)) \Illuminate\Support\Facades\File::move($temp, public_path($newPath));
             $data['front_cover'] = $newPath;
         }
 
-        // 🟢 Move back cover
-        if (!empty($data['back_cover']) && file_exists(public_path($data['back_cover']))) {
-            $newPath = 'assets/books/' . $categoryFolderName . '/' . basename($data['back_cover']);
-            File::move(public_path($data['back_cover']), public_path($newPath));
+        // Move back cover
+        if (!empty($data['back_cover_path'])) {
+            $temp = public_path($data['back_cover_path']);
+            $newPath = "assets/books/$categoryFolderName/" . basename($temp);
+            if (file_exists($temp)) \Illuminate\Support\Facades\File::move($temp, public_path($newPath));
             $data['back_cover'] = $newPath;
         }
 
-        // 🟢 Handle PDF upload
+        // Save PDF
         if ($request->hasFile('file_path')) {
-            $pdfFolder = 'assets/books/pdf/';
-            if (!file_exists(public_path($pdfFolder))) {
-                mkdir(public_path($pdfFolder), 0777, true);
-            }
-            $fileName = time() . '_' . $request->file('file_path')->getClientOriginalName();
-            $request->file('file_path')->move(public_path($pdfFolder), $fileName);
-            $data['file_path'] = $pdfFolder . $fileName;
+            $file = $request->file('file_path');
+            $filename = time() . "_" . \Illuminate\Support\Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . "." . $file->getClientOriginalExtension();
+            $pdfFolder = public_path("assets/books/pdf");
+            if (!file_exists($pdfFolder)) mkdir($pdfFolder, 0777, true);
+            $file->move($pdfFolder, $filename);
+            $data['file_path'] = "assets/books/pdf/" . $filename;
         }
 
-        // 🟢 Save book data
-        $book = Book::create($data);
+        $book = \App\Models\Book::create($data);
 
-        // 🧹 Clean up leftover temp files (if still exist)
-        if (!empty($data['front_cover']) && str_contains($data['front_cover'], 'temp'))
-            File::delete(public_path($data['front_cover']));
-        if (!empty($data['back_cover']) && str_contains($data['back_cover'], 'temp'))
-            File::delete(public_path($data['back_cover']));
+        // Clean temporary folder
+        $tempFolder = public_path("assets/books/temporary");
+        if (\Illuminate\Support\Facades\File::exists($tempFolder)) {
+            \Illuminate\Support\Facades\File::deleteDirectory($tempFolder);
+        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Book added successfully!',
-            'book' => $book,
-        ]);
+        return response()->json(['success' => true, 'message' => 'Book added successfully!', 'book' => $book]);
     }
 
-    // 5 SHOW - show one specific book detail
-    public function show($id)
-    {
-        $book = Book::with(['author', 'category'])->findOrFail($id);
 
+    // 5 SHOW - show one specific book detail
+    public function show($id) {
+        $book = Book::with(['author', 'category'])->findOrFail($id);
         return view('books.show', compact('book'));
     }
 
@@ -125,7 +124,7 @@ class BookController extends Controller
         $authors = Author::all();
         $categories = Category::all();
 
-        return view('books.edit', compact('book', 'authors', 'categories'));
+        return view('books.edit', compact('book','authors','categories'));
     }
 
     // 7 UPDATE - save edited book data
@@ -161,31 +160,4 @@ class BookController extends Controller
         return response()->json($categories);
     }
 
-    // 10 Upload book image to temp folder via AJAX
-    public function uploadTemp(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-
-        // Generate unique file name
-        $filename = Str::random(10) . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-
-        // Define public path for temp folder
-        $tempPath = public_path('assets/books/temp');
-
-        // Create temp folder if not exist
-        if (!file_exists($tempPath)) {
-            mkdir($tempPath, 0777, true);
-        }
-
-        // Move uploaded file to public/assets/books/temp
-        $request->file('image')->move($tempPath, $filename);
-
-        return response()->json([
-            'success' => true,
-            'path' => 'assets/books/temp/' . $filename, // relative path
-            'url' => asset('assets/books/temp/' . $filename), // full URL for preview
-        ]);
-    }
 }
