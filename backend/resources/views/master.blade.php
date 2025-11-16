@@ -26,7 +26,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="./" class="text-nowrap logo-img ">
-                        <img src="assets/images/logos/icon.png" alt="" width="200px" height="100px" />
+                        <img src="{{ asset('assets/images/logos/icon.png') }}" alt="" width="200px" height="100px" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-6"></i>
@@ -240,8 +240,48 @@
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('script-path')
+    <script>
+        $(document).on('click', '[class^="preview-"]', function() {
+            // When click the preview box, trigger input file click
+            $('#' + $(this).data('target-file')).click();
+        });
+
+        $(document).on('change', 'input[type="file"]', function() {
+            let file = this.files[0];
+            if (!file) return;
+
+            let inputId = $(this).attr('id'); // 'front_cover' or 'back_cover'
+            let formData = new FormData();
+            formData.append(inputId, file);
+
+            // Hidden input and preview image IDs
+            let hiddenId = inputId + '_path'; // e.g. front_cover_path
+            let showImageId = 'show-' + inputId.replace('_', '-'); // e.g. show-front-cover
+
+            $.ajax({
+                url: "{{ route('uploadFile') }}",
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    // response = "assets/books/temporary/filename.png"
+                    $('#' + showImageId).attr('src', "{{ asset('') }}" + response);
+                    $('#' + hiddenId).val(response);
+                },
+                error: function(xhr) {
+                    console.error("Upload failed:", xhr.responseText);
+                }
+            });
+        });
+
+
+    </script>
 </body>
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 
 </html>

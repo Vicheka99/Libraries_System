@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Ignore everything inside books
+public/assets/books/**
+# But DO NOT ignore the placeholder folder
+!public/assets/books/placeholder/
+# And DO NOT ignore the image.png file
+!public/assets/books/placeholder/image.png

@@ -5,14 +5,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\BookController;
 use Spatie\FlareClient\View;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Auth\AuthenticationController;
 
-// Route::get('/', function(){return view('dashboard');})->name('dashboard');
+// Books controller Routes
 Route::resource('books', BookController::class);
+Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
+Route::post('/books/{id}/update', [BookController::class, 'update'])->name('books.update');
+Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
 Route::get('/categories/all', [App\Http\Controllers\BookController::class, 'categories'])->name('categories.all');
-Route::post('/books/upload-temp', [App\Http\Controllers\BookController::class, 'uploadTemp'])->name('books.uploadTemp');
+
+// Home Controller Routes
+Route::post('/upload-file', [HomeController::class, 'uploadFile'])->name('uploadFile');
+Route::post('/clear-temp-folder', [HomeController::class, 'clearTempFolder'])->name('clearTempFolder');
+
+// Author Controller Routes
+Route::get('/authors/search', [AuthorController::class, 'search'])->name('authors.search');
+Route::get('/genders/all', [AuthorController::class, 'genders'])->name('authors.genders');
+Route::post('/authors/store-ajax', [AuthorController::class, 'storeAjax'])->name('authors.store.ajax');
+
 Route::get('/index', function () {
     return view('master');
 });
