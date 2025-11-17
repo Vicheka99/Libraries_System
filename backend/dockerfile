@@ -1,0 +1,30 @@
+FROM php:8.2-cli
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy the whole Laravel project
+COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Generate APP_KEY (for local dev)
+RUN php artisan key:generate --force
+
+# Expose Laravel dev server port
+EXPOSE 8000
+
+# Default command (we override in docker-compose)
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
