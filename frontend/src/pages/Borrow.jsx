@@ -35,16 +35,50 @@ export default function Borrow() {
     setForm(f => ({ ...f, [name]: type === "checkbox" ? checked : value }));
   }
 
-  function submit(e) {
-    e.preventDefault();
-    if (!form.agreeReturn || !form.agreePolicy) {
-      alert("Please accept both checkboxes to continue.");
-      return;
-    }
-    // Simulate successful request
-    console.log("Borrowed:", book.title, form);
-    setShowPopup(true); // 👈 show popup
+  async function submit(e) {
+  e.preventDefault();
+
+  if (!form.agreeReturn || !form.agreePolicy) {
+    alert("Please accept both checkboxes to continue.");
+    return;
   }
+
+  // Prepare the data
+  const borrowerData = {
+    first_name: form.firstName,
+    last_name: form.lastName,
+    email: form.email,
+    phone_number: `${form.phoneCode}${form.phone}`,
+    campus: "RUPP", // you can change this if you collect it from the form
+    book_title: book.title,
+  };
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/api/borrowers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(borrowerData),
+    });
+    console.log(borrowerData);
+    
+
+    if (res.ok) {
+      const data = await res.json();
+      console.log("✅ Borrower saved:", data);
+      setShowPopup(true);
+    } else {
+      const error = await res.json();
+      console.error("❌ Error:", error);
+      alert("Failed to borrow the book. Please try again.");
+    }
+  } catch (error) {
+    console.error("⚠️ Network Error:", error);
+    alert("Cannot connect to server.");
+  }
+}
+
 
   return (
     <main className="borrow-page">
@@ -100,7 +134,7 @@ export default function Borrow() {
             </label>
             <label className="check">
               <input type="checkbox" name="agreePolicy" checked={form.agreePolicy} onChange={update} />
-              I accept GEN Z Library Borrowing Policy
+              I accept GEN-Z Library Borrowing Policy
             </label>
 
             <div className="actions">
