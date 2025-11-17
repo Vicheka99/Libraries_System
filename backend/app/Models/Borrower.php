@@ -10,20 +10,29 @@ class Borrower extends Model
     const ID = 'borrower_id';
     const FIRST_NAME = 'first_name';
     const LAST_NAME = 'last_name';
-    const DOB = 'date_of_birth';
-    const GENDER = 'gender_id';
     const EMAIL = 'email';
     const PHONE_NUMBER = 'phone_number';
-    const SCHOOL_NAME = 'school_name';
-    const CREATED_AT = 'created_at';
+    const CAMPUS = 'campus';
+    const BOOK_TITLE = 'book_title';
+    const BOOK_ID = 'book_id';
 
+    protected $table = 'borrowers';
+    protected $primaryKey = 'borrower_id';
+    public $timestamps = true;
 
     protected $fillable = [
         self::FIRST_NAME,
         self::LAST_NAME,
-        self::DOB,
         self::EMAIL,
         self::PHONE_NUMBER,
-        self::SCHOOL_NAME,
+        self::CAMPUS,
+        self::BOOK_TITLE,
+        self::BOOK_ID
     ];
+
+    // Relationship
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id', 'bookID');
+    }
 }

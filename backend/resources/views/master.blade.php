@@ -15,6 +15,28 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/assets/css/styles.min.css.map') }}" />
 
+    <style>
+        /* Fix dropdown menu positioning */
+        .dropdown-menu {
+            position: absolute !important;
+            top: 100% !important;
+            left: auto !important;
+            right: 0 !important;
+            z-index: 1050 !important;
+            margin-top: 0.5rem !important;
+        }
+
+        .dropdown-menu.show {
+            display: block !important;
+        }
+
+        /* Ensure dropdown stays within viewport */
+        .navbar .dropdown-menu {
+            max-width: 250px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+
 </head>
 
 <body>
@@ -26,7 +48,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="./" class="text-nowrap logo-img ">
-                        <img src="assets/images/logos/icon.png" alt="" width="200px" height="100px" />
+                        <img src="{{asset('assets/images/logos/icon.png')}}" alt="" width="200px" height="100px" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-6"></i>
@@ -64,9 +86,17 @@
                             <a class="sidebar-link justify-content-between" href="{{route('borrower.index')}}" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
-                                        <i class="ti ti-aperture"></i>
+                                        <i class="ti ti-user"></i>
                                     </span>
                                     <span class="hide-menu">Borrower</span>
+                                </div>
+                            </a>
+                            <a class="sidebar-link justify-content-between" href="{{route('borrow_transactions.index')}}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="d-flex">
+                                        <i class="ti ti-file-text"></i>
+                                    </span>
+                                    <span class="hide-menu">Borrow Transactions</span>
                                 </div>
                             </a>
                         </li>
@@ -239,7 +269,35 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    @yield('scripts')
     @stack('script-path')
+
+    <script>
+        // Ensure Bootstrap dropdowns work properly
+        $(document).ready(function() {
+            // Initialize all dropdowns
+            var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+            dropdownElementList.forEach(function (dropdownToggleEl) {
+                new bootstrap.Dropdown(dropdownToggleEl, {
+                    autoClose: true
+                });
+            });
+
+            // Fallback click handler
+            $('#drop2').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).next('.dropdown-menu').toggleClass('show');
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown-menu').removeClass('show');
+                }
+            });
+        });
+    </script>
 </body>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>

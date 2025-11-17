@@ -6,14 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BorrowTransactions extends Model
 {
-    // $table->id('transaction_id'); // Primary Key
-    //         $table->unsignedBigInteger('borrower_id'); // FK from users table
-    //         $table->unsignedBigInteger('book_id');     // FK from books table
-    //         $table->date('borrow_date');
-    //         $table->date('due_date');
-    //         $table->date('return_date')->nullable();
-    //         $table->timestamps();
-
     const TABLE_NAME = 'borrow_transactions';
     const ID = 'transaction_id';
     const BORROWER = 'borrower_id';
@@ -22,6 +14,10 @@ class BorrowTransactions extends Model
     const DUE_DATE = 'due_date';
     const RETURN_DATE = 'return_date';
 
+    protected $table = 'borrow_transactions';
+    protected $primaryKey = 'transaction_id';
+    public $timestamps = true;
+
     protected $fillable = [
         self::BORROWER,
         self::BOOK,
@@ -29,4 +25,15 @@ class BorrowTransactions extends Model
         self::DUE_DATE,
         self::RETURN_DATE,
     ];
+
+    // Relationships
+    public function borrower()
+    {
+        return $this->belongsTo(Borrower::class, 'borrower_id', 'borrower_id');
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id', 'bookID');
+    }
 }
