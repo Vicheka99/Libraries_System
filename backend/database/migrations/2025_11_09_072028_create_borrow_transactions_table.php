@@ -13,20 +13,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(BorrowTransactions::TABLE_NAME, function (Blueprint $table) {
-            $table->id(BorrowTransactions::ID); // Primary Key
-            $table->unsignedBigInteger(BorrowTransactions::BORROWER); // FK from users table
-            $table->unsignedBigInteger(BorrowTransactions::BOOK);     // FK from books table
+            $table->id(BorrowTransactions::ID); // transaction_id (PK)
+            $table->unsignedBigInteger(BorrowTransactions::BORROWER); // borrower_id (FK)
+            $table->unsignedBigInteger(BorrowTransactions::BOOK)->nullable();     // book_id (FK) - nullable
             $table->date(BorrowTransactions::BORROW_DATE);
             $table->date(BorrowTransactions::DUE_DATE);
             $table->date(BorrowTransactions::RETURN_DATE)->nullable();
             $table->timestamps();
 
             // Foreign Keys
-            $table->foreign(BorrowTransactions::BORROWER)->references('id')->on('users')->onDelete('cascade');
-        });
-    }
+            $table->foreign(BorrowTransactions::BORROWER)
+                ->references('borrower_id')
+                ->on('borrowers')
+                ->onDelete('cascade');
 
-    /**
+            $table->foreign(BorrowTransactions::BOOK)
+                ->references('bookID')
+                ->on('books')
+                ->onDelete('set null');
+        });
+    }    /**
      * Reverse the migrations.
      */
     public function down(): void

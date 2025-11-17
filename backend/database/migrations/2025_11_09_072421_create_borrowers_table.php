@@ -15,16 +15,12 @@ return new class extends Migration
         Schema::create(Borrower::TABLE_NAME, function (Blueprint $table) {
             $table->id(Borrower::ID); // Primary Key
             $table->string(Borrower::FIRST_NAME);
-            $table->string(Borrower::LAST_NAME) ;
-            $table->date(Borrower::DOB)->nullable(); // Optional
-            $table->unsignedBigInteger(Borrower::GENDER); // FK to genders table gender_id
+            $table->string(Borrower::LAST_NAME);
             $table->string(Borrower::EMAIL)->unique();
             $table->string(Borrower::PHONE_NUMBER);
-            $table->string(Borrower::SCHOOL_NAME);
+            $table->string(Borrower::CAMPUS)->nullable();
+            $table->string(Borrower::BOOK_TITLE)->nullable();
             $table->timestamps();
-
-            // Foreign Key
-            // $table->foreign(Borrower::GENDER)->references('id')->on('genders')->onDelete('set null');
         });
     }
 

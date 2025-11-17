@@ -37,8 +37,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('/index');
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
 
+    // borrower list
     Route::get('/borrower', [App\Http\Controllers\BorrowerController::class, 'index'])->name('borrower.index');
-    Route::post('/borrower/create', [App\Http\Controllers\BorrowerController::class, 'create'])->name('borrower.create');
 
-    Route::resource('borrower', BorrowerController::class);
+    // endpoints to send confirmation/rejection emails and pickup view
+    Route::post('/borrower/{id}/confirm', [App\Http\Controllers\BorrowerController::class, 'confirm'])->name('borrower.confirm');
+    Route::post('/borrower/{id}/reject', [App\Http\Controllers\BorrowerController::class, 'reject'])->name('borrower.reject');
+    Route::post('/borrower/create', [App\Http\Controllers\BorrowerController::class, 'create'])->name('borrower.create');
+    Route::post('/borrowers', [App\Http\Controllers\BorrowerController::class, 'store']);
+
+    // borrow transactions
+    Route::get('/borrow-transactions', [App\Http\Controllers\BorrowTransactionController::class, 'index'])->name('borrow_transactions.index');
+    Route::post('/borrow-transactions/{id}/pickup', [App\Http\Controllers\BorrowTransactionController::class, 'pickUp'])->name('borrow_transactions.pickup');
+
 });
