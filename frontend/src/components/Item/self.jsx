@@ -1,17 +1,13 @@
 // src/components/Item.jsx
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function Item({ categoryName = "Self-Improvement & Motivation" }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchBooks();
-  }, [categoryName]);
-
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
     try {
       setLoading(true);
       // Fetch all books and filter on frontend, or use category name parameter
@@ -38,7 +34,11 @@ export default function Item({ categoryName = "Self-Improvement & Motivation" })
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoryName]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   if (loading) {
     return <div className="text-center p-5">Loading books...</div>;

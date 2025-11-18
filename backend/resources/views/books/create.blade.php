@@ -18,7 +18,6 @@
                     <option value="{{ $category->categoryID }}">{{ $category->category_type }}</option>
                 @endforeach
             </select>
-            </select>
         </div>
 
         <!-- Author -->

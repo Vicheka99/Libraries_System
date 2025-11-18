@@ -29,6 +29,11 @@ export default function Sidebar() {
             <strong>Techonology & Science</strong>
           </NavLink> 
         </li>
+        <li>
+            <NavLink to="/World_Literature" className="g-sidebar-link">
+                World Literature
+            </NavLink>
+        </li>
       </ul>
     </aside>
   );

@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
-export default function Item({ categoryName = "Khmer Literature" }) {
+export default function Item({ categoryName = "World Literature" }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,19 +39,19 @@ export default function Item({ categoryName = "Khmer Literature" }) {
   useEffect(() => {
     fetchBooks();
   }, [fetchBooks]);
-  
-    if (loading) {
-      return <div className="text-center p-5">Loading books...</div>;
-    }
-  
-    if (error) {
-      return <div className="text-center p-5 text-danger">Error: {error}</div>;
-    }
-  
-    if (books.length === 0) {
-      return <div className="text-center p-5">No books found in this category.</div>;
-    }
-  
+
+  if (loading) {
+    return <div className="text-center p-5">Loading books...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center p-5 text-danger">Error: {error}</div>;
+  }
+
+  if (books.length === 0) {
+    return <div className="text-center p-5">No books found in this category.</div>;
+  }
+
 
 return (
     <section className="book-section">

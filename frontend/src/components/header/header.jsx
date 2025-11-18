@@ -1,7 +1,17 @@
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <header className="g-header">
       <div className="g-logo">
@@ -12,32 +22,55 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" end className="g-link">
-              <strong>Home</strong>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) => isActive ? "g-link active" : "g-link"}
+              style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "normal" })}
+            >
+              Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/popular" className="g-link">
+            <NavLink
+              to="/popular"
+              className={({ isActive }) => isActive ? "g-link active" : "g-link"}
+              style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "normal" })}
+            >
               Popular
             </NavLink>
           </li>
           <li>
-            <NavLink to="/donations" className="g-link">
+            <NavLink
+              to="/donations"
+              className={({ isActive }) => isActive ? "g-link active" : "g-link"}
+              style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "normal" })}
+            >
               Donations
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" className="g-link">
+            <NavLink
+              to="/about"
+              className={({ isActive }) => isActive ? "g-link active" : "g-link"}
+              style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "normal" })}
+            >
               About Us
             </NavLink>
           </li>
         </ul>
       </nav>
 
-      <div className="g-search">
+      <form onSubmit={handleSearch} className="g-search">
         <i className="bi bi-search" aria-hidden="true"></i>
-        <input type="text" placeholder="Search for books" aria-label="Search for books" />
-      </div>
+        <input
+          type="text"
+          placeholder="Search for books"
+          aria-label="Search for books"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </form>
     </header>
   );
 }

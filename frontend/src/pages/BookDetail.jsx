@@ -1,17 +1,33 @@
 // src/pages/BookDetail.jsx
 import { useParams, Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function BookDetail() {
   const { id } = useParams();
   const { state } = useLocation();
   const passedBook = state?.book;
 
-  const [book, setBook] = useState(passedBook || null);
+  const [book] = useState(passedBook || null);
+
+  const incrementViewCount = useCallback(async () => {
+    try {
+      await fetch(`http://localhost:8000/api/books/${id}/view`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error incrementing view count:', error);
+    }
+  }, [id]);
 
   useEffect(() => {
-    // If you want a fallback fetch later, do it here with id.
-  }, [id]);
+    // Increment view count when book detail page is viewed
+    if (id) {
+      incrementViewCount();
+    }
+  }, [id, incrementViewCount]);
 
   if (!book) {
     return (
@@ -67,7 +83,20 @@ export default function BookDetail() {
           </div>
 
           <div className="detail-actions">
-            <button className="btn btn--primary">Read Online</button>
+            {book.file_path ? (
+              <Link
+                to={`/read/${book.id}`}
+                state={{ book }}
+                className="btn btn--primary"
+                style={{ textDecoration: "none" }}
+              >
+                Read Online
+              </Link>
+            ) : (
+              <button className="btn btn--primary" disabled title="File not available">
+                Read Online
+              </button>
+            )}
               <Link
                 to={`/borrow/${book.id}`}
                 state={{ book }}                 // pass book to Borrow page

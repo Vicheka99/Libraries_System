@@ -113,22 +113,15 @@ $(document).ready(function () {
     }
 
     // ====================================================
-    // SELECT2 AUTHOR SEARCH
+    // SELECT2 AUTHOR SEARCH (Local data, not AJAX)
     // ====================================================
     function setupSelect2Author() {
         const $authorSelect = $("#basicModal #authorID");
         if ($authorSelect.length) {
+            // Use local data (authors already loaded from blade foreach)
             $authorSelect.select2({
                 placeholder: "Select or search author...",
                 dropdownParent: $("#basicModal"),
-                ajax: {
-                    url: "/authors/search",
-                    dataType: "json",
-                    delay: 250,
-                    data: params => ({ q: params.term }),
-                    processResults: data => data,
-                    cache: true,
-                },
                 width: "100%",
             });
         }
@@ -174,32 +167,9 @@ $(document).ready(function () {
                 const $authorSelect = $("#basicModal #authorID");
 
                 if ($authorSelect.length) {
-                    // Destroy Select2 first
-                    if ($authorSelect.hasClass("select2-hidden-accessible")) {
-                        $authorSelect.select2('destroy');
-                    }
-
-                    // Add the new option to the DOM
+                    // Add new option and select it
                     const newOption = new Option(author.author_name, author.authorID, true, true);
-                    $authorSelect.append(newOption);
-
-                    // Reinitialize Select2 with the same settings
-                    $authorSelect.select2({
-                        placeholder: "Select or search author...",
-                        dropdownParent: $("#basicModal"),
-                        ajax: {
-                            url: "/authors/search",
-                            dataType: "json",
-                            delay: 250,
-                            data: params => ({ q: params.term }),
-                            processResults: data => data,
-                            cache: true,
-                        },
-                        width: "100%",
-                    });
-
-                    // Set the value to show the newly added author
-                    $authorSelect.val(author.authorID).trigger('change');
+                    $authorSelect.append(newOption).trigger('change');
                 }
 
                 // Close the add author modal
@@ -234,6 +204,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             cache: false,
+            timeout: 60000, // 60 seconds timeout
             headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
             beforeSend: () => Swal.fire({title: `${actionText} book...`, allowOutsideClick: false, didOpen: () => Swal.showLoading()}),
             success: function (res) {
@@ -242,15 +213,21 @@ $(document).ready(function () {
                 bootstrap.Modal.getInstance(document.getElementById("basicModal")).hide();
                 setTimeout(() => (window.location.href = "/books"), 800);
             },
-            error: function (xhr) {
+            error: function (xhr, status, error) {
                 Swal.close();
+                
+                if (status === 'timeout') {
+                    return toastError("Request timeout! The file might be too large or server is slow.");
+                }
+                
                 if (xhr.status === 419) return toastError("Session expired. Please reload.");
                 if (xhr.status === 422 && xhr.responseJSON) {
                     const messages = Object.values(xhr.responseJSON.errors).flat().join("\n");
                     return toastError(messages);
                 }
-                toastError(xhr.responseJSON?.message || "Something went wrong.");
+                
                 console.error("Book form error:", xhr);
+                toastError(xhr.responseJSON?.message || "Something went wrong.");
             },
         });
     });

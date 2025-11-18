@@ -6,18 +6,18 @@ export default function Sidebar() {
       <ul>
         <li>
           <NavLink to="/" className="g-sidebar-link">
-            <strong>Home Page</strong>
+            Home Page
           </NavLink>
         </li>
         <li>
           <NavLink to="/Education_Research" className="g-sidebar-link">
-            Education & Research
+           Education & Research
           </NavLink>
         </li>
         <li>
           <NavLink to="/Khmer_Literature" className="g-sidebar-link">
-            Khmer Literature & Culture
-          </NavLink>
+             Khmer Literature & Culture
+          </NavLink> 
         </li>
         <li>
           <NavLink to="/Self_Improvement" className="g-sidebar-link">
@@ -26,12 +26,12 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink to="/Technology" className="g-sidebar-link">
-            Technology & Science
+            Techonology & Science
           </NavLink>
         </li>
         <li>
             <NavLink to="/World_Literature" className="g-sidebar-link">
-                World Literature
+                <strong>World Literature</strong>
             </NavLink>
         </li>
       </ul>
