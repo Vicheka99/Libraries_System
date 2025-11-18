@@ -78,7 +78,7 @@
                                 href="{{route('user.index')}}" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
-                                        <i class="ti ti-aperture"></i>
+                                        <i class="ti ti-user"></i>
                                     </span>
                                     <span class="hide-menu">Admin</span>
                                 </div>
