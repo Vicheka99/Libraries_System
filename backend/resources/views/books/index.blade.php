@@ -61,10 +61,9 @@
 
                     <!-- Read PDF -->
                     @if ($book->file_path)
-                        <button class="btn btn-sm btn-success"
-                                onclick="openPdfViewer('{{ asset($book->file_path) }}')">
-                            Read
-                        </button>
+                        <a href="{{ route('books.read', $book->bookID) }}" target="_blank" class="btn btn-sm btn-success">
+                            <i class="bi bi-book-half"></i> Read Online
+                        </a>
                     @endif
 
                     <!-- Update -->
@@ -91,22 +90,66 @@
 
 
 
-{{-- ===================== PDF Viewer Modal ===================== --}}
-<div class="modal fade" id="pdfModal" tabindex="-1">
-    <div class="modal-dialog modal-fullscreen">
+{{-- ===================== Book Form Modal (for custom.js) ===================== --}}
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <div class="modal-header">
-                <h5 class="modal-title">Book Reader</h5>
+                <h5 class="modal-title">Book Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
-            <div class="modal-body p-0">
-                <iframe id="pdfFrame" src="" width="100%" height="100%"></iframe>
+            <div class="modal-body">
+                <!-- Form content will be loaded here by custom.js -->
             </div>
-
         </div>
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    // Delete Book
+    function deleteBook(bookId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/books/${bookId}`,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted Successfully!',
+                            text: 'Book has been deleted.',
+                            confirmButtonColor: '#28a745',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to delete book.',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

@@ -11,6 +11,7 @@ use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\Auth\AuthenticationController;
 
 // Books controller Routes
+Route::get('/books/{id}/read', [BookController::class, 'readPdf'])->name('books.read');
 Route::resource('books', BookController::class);
 Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
 Route::post('/books/{id}/update', [BookController::class, 'update'])->name('books.update');
@@ -50,4 +51,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/borrow-transactions', [App\Http\Controllers\BorrowTransactionController::class, 'index'])->name('borrow_transactions.index');
     Route::post('/borrow-transactions/{id}/pickup', [App\Http\Controllers\BorrowTransactionController::class, 'pickUp'])->name('borrow_transactions.pickup');
 
+    Route::get('/books/{id}/read', [BookController::class, 'readPdf'])->name('books.read');
+    Route::resource('books', BookController::class);
+    Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::post('/books/{id}/update', [BookController::class, 'update'])->name('books.update');
+    Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::get('/categories/all', [App\Http\Controllers\BookController::class, 'categories'])->name('categories.all');
+
+    // Home Controller Routes
+    Route::post('/upload-file', [HomeController::class, 'uploadFile'])->name('uploadFile');
+    Route::post('/clear-temp-folder', [HomeController::class, 'clearTempFolder'])->name('clearTempFolder');
+
+    // Author Controller Routes
+    Route::get('/authors/search', [AuthorController::class, 'search'])->name('authors.search');
+    Route::get('/genders/all', [AuthorController::class, 'genders'])->name('authors.genders');
+    Route::post('/authors/store-ajax', [AuthorController::class, 'storeAjax'])->name('authors.store.ajax');
+
+    Route::get('/index', function () {
+        return view('master');
+    });
 });

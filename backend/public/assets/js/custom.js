@@ -85,26 +85,31 @@ $(document).ready(function () {
     }
 
     // ====================================================
-    // LOAD CATEGORIES
+    // LOAD CATEGORIES (only if dropdown is nearly empty)
     // ====================================================
     function loadCategories() {
-        $.ajax({
-            url: "/categories/all",
-            type: "GET",
-            success: function (categories) {
-                const $categorySelect = $("#basicModal #categoryID");
-                if ($categorySelect.length) {
-                    $categorySelect.empty();
-                    $categorySelect.append('<option value="">-- Select Category --</option>');
-                    categories.forEach(c => {
-                        $categorySelect.append(`<option value="${c.categoryID}">${c.category_type}</option>`);
-                    });
-                }
-            },
-            error: function () {
-                toastError("Failed to load categories.");
+        const $categorySelect = $("#basicModal #categoryID");
+        if ($categorySelect.length) {
+            const optionCount = $categorySelect.find('option').length;
+            // Only load via AJAX if we have 1 or fewer options (just placeholder or empty)
+            if (optionCount <= 1) {
+                $.ajax({
+                    url: "/categories/all",
+                    type: "GET",
+                    success: function (categories) {
+                        $categorySelect.empty();
+                        $categorySelect.append('<option value="">-- Select Category --</option>');
+                        categories.forEach(c => {
+                            $categorySelect.append(`<option value="${c.categoryID}">${c.category_type}</option>`);
+                        });
+                    },
+                    error: function () {
+                        toastError("Failed to load categories.");
+                    }
+                });
             }
-        });
+            // If categories already exist (like in edit form), don't reload
+        }
     }
 
     // ====================================================
@@ -159,18 +164,51 @@ $(document).ready(function () {
     // ====================================================
     $(document).on("submit", "#addAuthorForm", function (e) {
         e.preventDefault();
+
         $.ajax({
             url: "/authors/store-ajax",
             type: "POST",
             data: $(this).serialize(),
+            headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
             success: function (author) {
                 const $authorSelect = $("#basicModal #authorID");
+
                 if ($authorSelect.length) {
+                    // Destroy Select2 first
+                    if ($authorSelect.hasClass("select2-hidden-accessible")) {
+                        $authorSelect.select2('destroy');
+                    }
+
+                    // Add the new option to the DOM
                     const newOption = new Option(author.author_name, author.authorID, true, true);
-                    $authorSelect.append(newOption).trigger("change");
+                    $authorSelect.append(newOption);
+
+                    // Reinitialize Select2 with the same settings
+                    $authorSelect.select2({
+                        placeholder: "Select or search author...",
+                        dropdownParent: $("#basicModal"),
+                        ajax: {
+                            url: "/authors/search",
+                            dataType: "json",
+                            delay: 250,
+                            data: params => ({ q: params.term }),
+                            processResults: data => data,
+                            cache: true,
+                        },
+                        width: "100%",
+                    });
+
+                    // Set the value to show the newly added author
+                    $authorSelect.val(author.authorID).trigger('change');
                 }
-                bootstrap.Modal.getInstance(document.getElementById("addAuthorModal")).hide();
+
+                // Close the add author modal
+                $("#addAuthorModal").modal('hide');
+
+                // Reset form
                 $("#addAuthorForm")[0].reset();
+
+                // Show success message
                 toastSuccess(`Author "${author.author_name}" added successfully!`);
             },
             error: function (xhr) {
@@ -180,11 +218,15 @@ $(document).ready(function () {
     });
 
     // ====================================================
-    // ADD BOOK FORM SUBMIT
+    // ADD/UPDATE BOOK FORM SUBMIT
     // ====================================================
     $(document).on("submit", "#addBookForm", function (e) {
         e.preventDefault();
         const $form = $(this);
+        const isUpdate = $form.attr("action").includes("/update");
+        const actionText = isUpdate ? "Updating" : "Saving";
+        const successText = isUpdate ? "Book updated successfully!" : "Book added successfully!";
+
         $.ajax({
             url: $form.attr("action"),
             type: $form.attr("method") || "POST",
@@ -193,10 +235,10 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
-            beforeSend: () => Swal.fire({title: "Saving book...", allowOutsideClick: false, didOpen: () => Swal.showLoading()}),
+            beforeSend: () => Swal.fire({title: `${actionText} book...`, allowOutsideClick: false, didOpen: () => Swal.showLoading()}),
             success: function (res) {
                 Swal.close();
-                toastSuccess(res.message || "Book added successfully!");
+                toastSuccess(res.message || successText);
                 bootstrap.Modal.getInstance(document.getElementById("basicModal")).hide();
                 setTimeout(() => (window.location.href = "/books"), 800);
             },
@@ -208,7 +250,7 @@ $(document).ready(function () {
                     return toastError(messages);
                 }
                 toastError(xhr.responseJSON?.message || "Something went wrong.");
-                console.error("Add Book error:", xhr);
+                console.error("Book form error:", xhr);
             },
         });
     });

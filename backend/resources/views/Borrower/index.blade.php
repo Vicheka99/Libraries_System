@@ -17,7 +17,6 @@
                                     <th class="text-truncate">Last_Name</th>
                                     <th class="text-truncate">Email</th>
                                     <th class="text-truncate">Phone Number</th>
-                                    <th class="text-truncate">Campus</th>
                                     <th class="text-truncate">Action</th>
                                 </tr>
                             </thead>
@@ -29,7 +28,6 @@
                                         <td>{{ $borrower -> last_name}}</td>
                                         <td>{{ $borrower -> email}}</td>
                                         <td>{{ $borrower -> phone_number}}</td>
-                                        <td>{{ $borrower-> campus }}</td>
                                         <td>
                                             <button class="btn btn-primary btn-confirm" data-id="{{ $borrower->borrower_id }}">Confirm</button>
                                             <button class="btn btn-danger btn-reject" data-id="{{ $borrower->borrower_id }}">Reject</button>

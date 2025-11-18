@@ -147,10 +147,20 @@ class BookController extends Controller
     // 8 DESTROY - delete a book
     public function destroy($id)
     {
-        $book = Book::findOrFail($id);
-        $book->delete();
+        try {
+            $book = Book::findOrFail($id);
+            $book->delete();
 
-        return redirect()->route('books.index')->with('success', 'Book deleted!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Book deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete book: ' . $e->getMessage()
+            ], 500);
+        }
     }
     // 9 Get list of categories for AJAX
     public function categories()
@@ -160,4 +170,21 @@ class BookController extends Controller
         return response()->json($categories);
     }
 
+    // 10 Read PDF inline (open in browser, not download)
+    public function readPdf($id)
+    {
+        $book = Book::findOrFail($id);
+
+        if (!$book->file_path || !file_exists(public_path($book->file_path))) {
+            abort(404, 'PDF not found');
+        }
+
+        $file = public_path($book->file_path);
+
+        return response()->file($file, [
+            'Content-Type' => 'application/pdf',
+        ]);
+    }
+
 }
+
