@@ -29,7 +29,19 @@ export default function BookDetail() {
 
       <div className="detail-wrap container">
         <aside className="detail-cover">
-          <img src={book.image || book.coverUrl} alt={book.title} />
+          {/* Only show front cover if it exists */}
+          {book.front_cover && (
+            <img src={book.front_cover} alt={`${book.title} - Front Cover`} />
+          )}
+          {/* Fallback to 'image' field if front_cover doesn't exist */}
+          {!book.front_cover && book.image && (
+            <img src={book.image} alt={book.title} />
+          )}
+          
+          {/* Show back cover if it exists */}
+          {book.back_cover && (
+            <img src={book.back_cover} alt={`${book.title} - Back Cover`} style={{ marginTop: '10px' }} />
+          )}
         </aside>
 
         <section className="detail-info">
@@ -43,9 +55,15 @@ export default function BookDetail() {
           </p>
 
           <div className="detail-thumbs">
-            <img src={book.image || book.coverUrl} alt="" />
-            <img src={book.image || book.coverUrl} alt="" />
-            <img src="/images/Book/books-ic" alt="" />
+            {/* Show front cover thumbnail if exists */}
+            {(book.front_cover || book.image) && (
+              <img src={book.front_cover || book.image} alt="Front Cover" />
+            )}
+            
+            {/* Show back cover thumbnail if exists */}
+            {book.back_cover && (
+              <img src={book.back_cover} alt="Back Cover" />
+            )}
           </div>
 
           <div className="detail-actions">

@@ -1,69 +1,57 @@
 // src/components/Item.jsx
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function Item() {
-  const books = [
-    {
-      id: 1,
-      title: "A Short History of Biology",
-      author: "Stephen R. Covey",
-      image: "/images/Book/techno/book1.jpg",
-    },
-    {
-      id: 2,
-      title: "SCIENCE TECHNOLOGY and SOCIETY",
-      author: "Robert Greene",
-      image: "/images/Book/techno/book2.jpg",
-    },
-    {
-      id: 3,
-      title: "Technology and Society",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book3.jpg",
-    },
-    {
-      id: 4,
-      title: "INTELLIGENCE UNBOUND",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book4.jpg",
-    },
-    {
-      id: 5,
-      title: "THINKING MACHINGES",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book5.jpg",
-    },
-    {
-      id: 6,
-      title: "NEUROTECHNOLOGY",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book6.jpg",
-    },
-    {
-      id: 7,
-      title: "THE SECRET LIFE OF THE MIND",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book7.jpg",
-    },
-    {
-      id: 8,
-      title: "THE SCIENCE of Mind",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book8.jpg",
-    },
-    {
-      id: 9,
-      title: "how to randall munroe",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book9.jpg",
-    },
-    {
-      id: 10,
-      title: "What Is Science?",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/techno/book10.jpg",
-    },
-  ];
+export default function Item({ categoryName = "Technology & Science" }) {
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [categoryName]);
+
+  const fetchBooks = async () => {
+    try {
+      setLoading(true);
+      // Fetch all books and filter on frontend, or use category name parameter
+      const url = `http://localhost:8000/api/books`;
+      
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch books');
+      }
+      
+      const data = await response.json();
+      
+      // Filter by category name if provided
+      const filteredBooks = categoryName 
+        ? data.filter(book => book.category === categoryName)
+        : data;
+      
+      setBooks(filteredBooks);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching books:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="text-center p-5">Loading books...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center p-5 text-danger">Error: {error}</div>;
+  }
+
+  if (books.length === 0) {
+    return <div className="text-center p-5">No books found in this category.</div>;
+  }
+
 
 return (
     <section className="book-section">
