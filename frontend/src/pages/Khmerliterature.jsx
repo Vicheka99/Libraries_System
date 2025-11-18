@@ -7,7 +7,7 @@ export default function Fantasy() {
     <main className="g-main">
       <Sidebar />
       {/* Item already renders the right-side white panel + grid */}
-      <Item />
+      <Item /> 
     </main>
   );
 }

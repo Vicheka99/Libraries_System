@@ -6,10 +6,10 @@ import Popular from "./pages/Popular.jsx";
 import BookDetail from "./pages/BookDetail.jsx";
 // in App.jsx routes (inside the Layout)
 import About from "./pages/About.jsx";
-import Fantasy from "./pages/Khmerliterature.jsx";
-import Children from "./pages/Educational.jsx";
-import SelfHelp from "./pages/Selfhelp.jsx";
-import Tech from "./pages/Techno.jsx";
+import Khmer_Literature from "./pages/Khmerliterature.jsx";
+import Education_Research from "./pages/Educational.jsx";
+import Self_Improvement from "./pages/Selfhelp.jsx";
+import Technology from "./pages/Techno.jsx";
 import Donations from './pages/Donations.jsx';
 import Borrow from "./pages/Borrow.jsx"; 
 function Layout() {
@@ -30,10 +30,10 @@ export default function App() {
         <Route path="/book-detail" element={<BookDetail />} />
         <Route path="/donations" element={<Donations />} />
         <Route path="/about" element={<About />} />
-        <Route path="/fantasy" element={<Fantasy />} />
-        <Route path="/child" element={<Children />} />
-        <Route path="/self-help" element={<SelfHelp />} />
-         <Route path="/tech" element={<Tech />} />
+        <Route path="/Education_Research" element={<Education_Research />} />
+        <Route path="/Khmer_Literature" element={<Khmer_Literature  />} />
+        <Route path="/Self_Improvement" element={<Self_Improvement />} />
+         <Route path="/Technology" element={<Technology/>} />
       {/* One dynamic page for ALL books */}
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/borrow/:id" element={<Borrow />} />  {/* 👈 new */}

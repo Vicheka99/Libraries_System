@@ -10,22 +10,22 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/fantasy" className="g-sidebar-link">
-            Khmer literature
+          <NavLink to="/Education_Research" className="g-sidebar-link">
+           <strong>Education & Research</strong>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/child" className="g-sidebar-link">
-            <strong>Education & research</strong>
+          <NavLink to="/Khmer_Literature" className="g-sidebar-link">
+             Khmer Literature & Culture
+          </NavLink> 
+        </li>
+        <li>
+          <NavLink to="/Self_Improvement" className="g-sidebar-link">
+            Self-Improvement
           </NavLink>
         </li>
         <li>
-          <NavLink to="/self-help" className="g-sidebar-link">
-            Self-help’s Books
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/tech" className="g-sidebar-link">
+          <NavLink to="/Technology" className="g-sidebar-link">
             Techonology & Science
           </NavLink>
         </li>
