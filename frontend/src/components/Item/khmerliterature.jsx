@@ -1,70 +1,57 @@
 // src/components/Item.jsx
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function Item() {
-  const books = [
-    {
-      id: 1,
-      title: "Our Story",
-      author: "Stephen R. Covey",
-      image: "/images/Book/Khmerliterature/book1.jpg",
-    },
-    {
-      id: 2,
-      title: "Temple Of preah Vihear Samphos",
-      author: "Robert Greene",
-      image: "/images/Book/Khmerliterature/book2.jpg",
-    },
-    {
-      id: 3,
-      title: "Toum Teav",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book3.jpg",
-    },
-    {
-      id: 4,
-      title: "The Flowers Withered",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book4.jpg",
-    },
-    {
-      id: 5,
-      title: "Love Fades Away",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book5.jpg",
-    },
-    {
-      id: 6,
-      title: "16 October",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book6.jpg",
-    },
-    {
-      id: 7,
-      title: "Our walk Home",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book7.jpg",
-    },
-    {
-      id: 8,
-      title: "Lovers By The Sea",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book8.jpg",
-    },
-    {
-      id: 9,
-      title: "My CAPRICORN Friend",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book9.jpg",
-    },
-    {
-      id: 10,
-      title: "The New Kid in School",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/Khmerliterature/book10.jpg",
-    },
-   
-  ];
+export default function Item({ categoryName = "Khmer Literature" }) {
+  const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+  
+    useEffect(() => {
+      fetchBooks();
+    }, [categoryName]);
+  
+    const fetchBooks = async () => {
+      try {
+        setLoading(true);
+        // Fetch all books and filter on frontend, or use category name parameter
+        const url = `http://localhost:8000/api/books`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch books');
+        }
+        
+        const data = await response.json();
+        
+        // Filter by category name if provided
+        const filteredBooks = categoryName 
+          ? data.filter(book => book.category === categoryName)
+          : data;
+        
+        setBooks(filteredBooks);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching books:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (loading) {
+      return <div className="text-center p-5">Loading books...</div>;
+    }
+  
+    if (error) {
+      return <div className="text-center p-5 text-danger">Error: {error}</div>;
+    }
+  
+    if (books.length === 0) {
+      return <div className="text-center p-5">No books found in this category.</div>;
+    }
+  
 
 return (
     <section className="book-section">

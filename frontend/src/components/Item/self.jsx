@@ -1,69 +1,57 @@
 // src/components/Item.jsx
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function Item() {
-  const books = [
-    {
-      id: 1,
-      title: "RETHINK YOURSELF",
-      author: "Stephen R. Covey",
-      image: "/images/Book/self/book1.jpg",
-    },
-    {
-      id: 2,
-      title: "AWAKEN YOUR BEST SELF",
-      author: "Robert Greene",
-      image: "/images/Book/self/book2.jpg",
-    },
-    {
-      id: 3,
-      title: "HOW TO BECOME THE BEST YOU",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book3.jpg",
-    },
-    {
-      id: 4,
-      title: "MASTER The OBVIOUS",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book4.jpg",
-    },
-    {
-      id: 5,
-      title: "THE AGELESS BRAIN",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book5.jpg",
-    },
-    {
-      id: 6,
-      title: "The LEFT BRAIN SPEAKS,The RIGHT BRAIN LAUGHS ",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book6.jpg",
-    },
-    {
-      id: 7,
-      title: "your brain knows more than you think",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book7.jpg",
-    },
-    {
-      id: 8,
-      title: "hoe to be your own therapist",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book8.jpg",
-    },
-    {
-      id: 9,
-      title: "The Art of SIMPLE LIVING",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book9.jpg",
-    },
-    {
-      id: 10,
-      title: "IKIGAI",
-      author: "Don Miguel Ruiz",
-      image: "/images/Book/self/book10.jpg",
-    },
-  ];
+export default function Item({ categoryName = "Self-Improvement & Motivation" }) {
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [categoryName]);
+
+  const fetchBooks = async () => {
+    try {
+      setLoading(true);
+      // Fetch all books and filter on frontend, or use category name parameter
+      const url = `http://localhost:8000/api/books`;
+      
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch books');
+      }
+      
+      const data = await response.json();
+      
+      // Filter by category name if provided
+      const filteredBooks = categoryName 
+        ? data.filter(book => book.category === categoryName)
+        : data;
+      
+      setBooks(filteredBooks);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching books:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="text-center p-5">Loading books...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center p-5 text-danger">Error: {error}</div>;
+  }
+
+  if (books.length === 0) {
+    return <div className="text-center p-5">No books found in this category.</div>;
+  }
+
 
 return (
     <section className="book-section">
