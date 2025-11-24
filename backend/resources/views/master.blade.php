@@ -86,7 +86,7 @@
                             <a class="sidebar-link justify-content-between" href="{{route('borrower.index')}}" aria-expanded="false">
                                 <div class="d-flex align-items-center gap-3">
                                     <span class="d-flex">
-                                        <i class="ti ti-user"></i>
+                                        <i class="bi bi-people"></i>
                                     </span>
                                     <span class="hide-menu">Borrower</span>
                                 </div>
